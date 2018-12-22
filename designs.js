@@ -22,4 +22,32 @@ $(function(){
             $('tr').append('<td></td>')
         }
     })
+
+    // 鼠标放置单元格上，边框变色作为提示。如果拾色器颜色是黑色，用灰色提示。否则用拾色器颜色提示。
+    if($('#colorPicker').val()==='#000000'){
+        $('#pixelCanvas').on('mouseenter', 'td', function(evt){
+            $(evt.target).css('border-color','#aaa');
+        });
+        $('#pixelCanvas').on('mouseleave', 'td', function(evt){
+            $(evt.target).css('border-color','black');
+        });
+    }
+    else {
+        $('#pixelCanvas').on('mouseenter', 'td', function(evt){
+            let tipColor = $('#colorPicker').val();
+            $(evt.target).css('border-color',tipColor);
+        });
+        $('#pixelCanvas').on('mouseleave', 'td', function(evt){
+            $(evt.target).css('border-color','black');
+        });
+    }
+    // 单击单元格后，背景变为拾色器颜色。
+    $('#pixelCanvas').on('click', 'td', function(evt){
+        let addColor = $('#colorPicker').val();
+        $(evt.target).css('background',addColor);
+    });
+    // 双击清除单元格颜色
+    $('#pixelCanvas').on('dblclick', 'td', function(evt){
+        $(evt.target).css('background','white');
+    });
 });
